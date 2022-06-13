@@ -1,0 +1,9 @@
+# IDE's configs
+.idea
+.vscode
+
+# record csv for testing and debugging purposes
+records_test.csv
+
+# executable binary
+cmd/script/main
