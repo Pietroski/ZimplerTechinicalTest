@@ -1,4 +1,4 @@
-package records
+package candy_store
 
 type (
 	Store interface {
