@@ -7,3 +7,6 @@ records_test.csv
 
 # executable binary
 cmd/script/main
+
+# report coverage files
+cover.out
