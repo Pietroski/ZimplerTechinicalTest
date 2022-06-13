@@ -10,7 +10,7 @@ import (
 	"sort"
 )
 
-const csvRecordsPath = "internal/datastore/csv/records/candy/records.csv"
+const csvRecordsPath = "db/csv/candies/records.csv"
 
 func main() {
 	file, err := os.Open(csvRecordsPath)

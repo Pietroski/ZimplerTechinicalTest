@@ -3,9 +3,7 @@ package candy_store
 import "sort"
 
 const (
-	csvRecordsPath = "cmd/script/records.csv"
-
-	NameFieldNum = iota - 1
+	NameFieldNum = iota
 	CandyFieldNum
 	EatenFieldNum
 	FieldsCount

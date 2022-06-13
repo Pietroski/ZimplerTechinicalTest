@@ -26,55 +26,6 @@ func rowExtractor(row []string) (name, candy string, amount int, err error) {
 	return
 }
 
-func ShowOffResults(
-	totalConsumptionMapping interface{},
-	overview interface{},
-) {
-	bs, err := json.MarshalIndent(totalConsumptionMapping, "", "  ")
-	error_handler.Handle(err)
-	fmt.Println(string(bs))
-
-	fmt.Println()
-	fmt.Println("#############################################")
-	fmt.Println()
-
-	bs, err = json.MarshalIndent(overview, "", "  ")
-	error_handler.Handle(err)
-	fmt.Println(string(bs))
-}
-
-func PopulateOverviewList(
-	overviewMapping *map[string]*ConsumeOverview,
-	overviewList *[]*ConsumeOverview,
-) {
-	var idx int
-	for _, overview := range *overviewMapping {
-		(*overviewList)[idx] = overview
-		idx++
-	}
-}
-
-func SnackOverview(
-	totalConsumptionMapping *map[string]*map[string]*PersonalConsumption,
-	overview *map[string]*ConsumeOverview,
-) {
-	for name, candyMap := range *totalConsumptionMapping {
-		var candyName string
-		var candyCount, highestCandyCount int
-
-		for candy, stats := range *candyMap {
-			if stats.Amount > highestCandyCount {
-				highestCandyCount = stats.Amount
-				candyName = candy
-			}
-
-			candyCount += stats.Amount
-		}
-
-		(*overview)[name] = newConsumeOverview(name, candyName, candyCount)
-	}
-}
-
 func AnalyzeIncomingData(
 	row []string,
 	totalConsumptionMapping *map[string]*map[string]*PersonalConsumption,
@@ -103,4 +54,53 @@ func AnalyzeIncomingData(
 	candyAnalysis.Amount += amnt
 
 	return nil
+}
+
+func SnackOverview(
+	totalConsumptionMapping *map[string]*map[string]*PersonalConsumption,
+	overview *map[string]*ConsumeOverview,
+) {
+	for name, candyMap := range *totalConsumptionMapping {
+		var candyName string
+		var candyCount, highestCandyCount int
+
+		for candy, stats := range *candyMap {
+			if stats.Amount > highestCandyCount {
+				highestCandyCount = stats.Amount
+				candyName = candy
+			}
+
+			candyCount += stats.Amount
+		}
+
+		(*overview)[name] = newConsumeOverview(name, candyName, candyCount)
+	}
+}
+
+func PopulateOverviewList(
+	overviewMapping *map[string]*ConsumeOverview,
+	overviewList *[]*ConsumeOverview,
+) {
+	var idx int
+	for _, overview := range *overviewMapping {
+		(*overviewList)[idx] = overview
+		idx++
+	}
+}
+
+func ShowOffResults(
+	totalConsumptionMapping interface{},
+	overview interface{},
+) {
+	bs, err := json.MarshalIndent(totalConsumptionMapping, "", "  ")
+	error_handler.Handle(err)
+	fmt.Println(string(bs))
+
+	fmt.Println()
+	fmt.Println("#############################################")
+	fmt.Println()
+
+	bs, err = json.MarshalIndent(overview, "", "  ")
+	error_handler.Handle(err)
+	fmt.Println(string(bs))
 }
